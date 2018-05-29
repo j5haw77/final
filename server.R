@@ -4,7 +4,7 @@ library(dplyr)
 library(ggplot2)
 library(DT)
 source("analysis.R")
-View(data)
+
 my_server <- function(input, output) {
   output$data_table <- renderDT({
     data %>% select(City, Humidity, ATM.Pressure, Temperature)
