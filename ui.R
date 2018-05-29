@@ -30,7 +30,7 @@ ui <- fluidPage(
       selectInput(
         "select",
         label = "Select a category:",
-        colnames(values)
+        colnames(data)
       )
     ),
     mainPanel(
