@@ -1,4 +1,4 @@
-"","city","current.weather.hu","current.weather.ic","current.weather.pr","current.weather.tp","current.weather.wd","current.weather.ws","current.pollution.aqius","current.pollution.mainus","current.pollution.aqicn","current.pollution.maincn","Latitude","Longitude"
+"","City","Humidity","Weather Icon Code","ATM Pressure","Temperature","Wind Direction","Wind Speed","AQI(US EPA)","Main Pollutant(US)","AQI(CN MEP)","Main Pollutant(CN)","Latitude","Longitude"
 "1","Seattle",45,"04d",1023,19,250,2.6,32,"o3",25,"o3",47.568236,-122.308628
 "2","Spokane",26,"01d",1014,27,NA,2.6,10,"p2",4,"p2",47.6997,-117.4263
 "3","Tacoma",52,"04d",1022,20,270,1.5,20,"p2",7,"p2",47.2656,-122.3858
