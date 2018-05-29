@@ -31,7 +31,7 @@ my_server <- function(input, output) {
     if (!is.null(input$categories)) {
       data %>% select(City, input$categories, Latitude, Longitude)
     } 
-   })
+  })
   
   output$pollut_plot <- renderPlot({
     plot <- selected_df() %>% 
