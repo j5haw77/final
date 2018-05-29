@@ -7,7 +7,7 @@ source("analysis.R")
 
 my_server <- function(input, output) {
   output$data_table <- renderDT({
-    data %>% select(city, Humidity, ATM.Pressure, Temperature)
+    data %>% select(City, input$categories, Latitude, Longitude)
   })
   
   output$plot_one <- renderPlot({
