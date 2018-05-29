@@ -12,7 +12,9 @@ my_server <- function(input, output) {
    })
   
   output$plot_one <- renderPlot({
-    
+    data %>% select(City, input$categories, Latitude, Longitude)
+    ggplot(data = data) +
+      
   })
 }
 
