@@ -7,13 +7,12 @@ source("analysis.R")
 
 my_server <- function(input, output) {
   output$data_table <- renderDT({
-
     data %>% select(City, input$categories, Latitude, Longitude)
    })
   
   output$plot_one <- renderPlot({
     data %>% select(City, input$categories, Latitude, Longitude)
-    ggplot(data = data) +
+    ggplot(data = data) 
       
   })
 }
