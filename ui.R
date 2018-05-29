@@ -14,6 +14,7 @@ ui <- fluidPage(
     information on multiple measurements of the environment, including 
     temperature, atmospheric pressure, wind speed, and pollution for the 
     48-hour period prior to data acquisition."),
+  br(),
   tabsetPanel(
     tabPanel("Table",
       sidebarLayout(
@@ -24,8 +25,9 @@ ui <- fluidPage(
             choices = c("Humidity", "Atm Pressure", "Temperature",
                         "Wind Direction", "Wind Speed", "AQI (US EPA)", 
                         "Main Pollutant (US)", "AQI (CN MEP)",      
-                        "Main Pollutant (CN)"),
-            selected = c("Humidity", "Atm Pressure", "Temperature"),
+                        "Main Pollutant (CN)", "Latitude", "Longitude"),
+            selected = c("Humidity", "Atm Pressure", "Temperature", 
+                         "Latitude", "Longitude"),
             inline = TRUE
           )
         ),
@@ -44,11 +46,12 @@ ui <- fluidPage(
             label = "Select a category:",
             choices = c("Humidity", "Atm Pressure", "Temperature", 
                         "Wind Speed", "AQI (US EPA)")
-          )
+          ),
+          br(),
+          tableOutput("chosen_value")
         ),
         mainPanel(
-          plotOutput("pollut_plot", click = "plot_click"),
-          tableOutput("chosen_value")
+          plotOutput("pollut_plot", click = "plot_click")
         )
       )
     ),

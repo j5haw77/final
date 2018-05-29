@@ -12,6 +12,7 @@ colnames(data) <- c("City", "Humidity", "Weather Icon Code", "Atm Pressure",
                     "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                     "Main Pollutant (CN)", "Latitude", "Longitude")
 
+# Add pre-defined theme to the given plot
 add_theme <- function(plot) {
   plot +
     theme(

@@ -11,7 +11,7 @@ my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
   
   selected_df <- reactive({
-    data %>% select(City, input$select, Latitude, Longitude)
+    data %>% select(City, input$select, "Latitude", "Longitude")
   })
   
   observeEvent(input$plot_click, {
@@ -21,7 +21,15 @@ my_server <- function(input, output) {
                            yvar = input$select)
     colnames(selected) <- c("City", input$select, "Latitude", "Longitude")
     reactive_vars$selected_value <- selected
+    if (nrow(selected) == 0) {
+      reactive_vars$selected_value <- NULL
+    }
   })
+  
+  observeEvent(input$select, {
+    reactive_vars$selected_value <- NULL
+  })
+  
   
   output$chosen_value <- renderTable({
     reactive_vars$selected_value
@@ -29,18 +37,19 @@ my_server <- function(input, output) {
   
   output$data_table <- renderDT({
     if (!is.null(input$categories)) {
-      data %>% select(City, input$categories, Latitude, Longitude)
+      data %>% select(City, input$categories)
     } 
   })
   
   output$pollut_plot <- renderPlot({
-    plot <- selected_df() %>% 
-      ggplot(mapping = aes(x = City, 
-                           y = data[input$select], 
-                           color = (City %in% reactive_vars$selected_value)), 
-             na.rm = TRUE
-          ) +
-      geom_point(stat = "identity", size = 4) +
+    plot <- ggplot(data = selected_df()) + 
+      geom_point(mapping = aes(x = City, 
+                               y = data[input$select], 
+                               color = (Latitude %in% reactive_vars$selected_value)), 
+                 na.rm = TRUE, 
+                 stat = "identity", 
+                 size = 4
+                ) +
       guides(color = FALSE) +
       labs(title = paste0(input$select, " by States"),
            x = "Cities",
