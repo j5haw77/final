@@ -13,12 +13,14 @@ my_server <- function(input, output) {
     } 
    })
   
-  output$pollute_plot <- renderPlot({
+  output$pollut_plot <- renderPlot({
     data %>% select(City, input$categories, Latitude, Longitude) %>% 
-    ggplot(aes(x='Pollution', y = data[input$select])) +
-      geom_point() +
-      theme_minimal()
-      
+    ggplot(aes(x=City, y = data[input$select]), na.rm = TRUE) +
+      geom_point(stat = "identity") +
+      ylab(input$select) +
+      theme_minimal() +
+      theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    
   })
 }
 
