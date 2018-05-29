@@ -5,13 +5,27 @@ library(DT)
 
 source("analysis.R")
 
+#choices = c("Humidity" = "Humidity", "Weather Icon" = "Weather.Icon.Code", 
+#            "Atm Pressure" = "ATM.Pressure", "Temperature" = "Temperature", 
+#            "Wind Direction" = "Wind.Direction", "Wind Speed" = "Wind.Speed", 
+#            "AQI (US EPA)" = "AQI.US.EPA", 
+#            "Main Pollutant (US)" = "Main.Pollutant.US", 
+#            "AQI (CN MEP)" = "AQI.CN.MEP",      
+#            "Main Pollutant (CN)" = "Main.Pollutant.CN"),
+
 ui <- fluidPage(
   titlePanel("Washington Air & Weather"),
   sidebarLayout(
     sidebarPanel(
-      checkboxInput(
-        "categories",
-        colnames(values)
+      checkboxGroupInput(
+        inputId = "categories",
+        label = "Categories",
+        choices = c("Humidity", "Weather Icon", "Atm Pressure", 
+                    "Temperature", "Wind Direction", "Wind Speed", 
+                    "AQI (US EPA)","Main Pollutant (US)", "AQI (CN MEP)",      
+                    "Main Pollutant (CN)"),
+        selected = c("Humidity", "Atm Pressure", "Temperature"),
+        inline = TRUE
       ),
       selectInput(
         "select",
