@@ -3,7 +3,9 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(DT)
+
 source("analysis.R")
+source("map.R")
 
 my_server <- function(input, output) {
   
@@ -21,6 +23,10 @@ my_server <- function(input, output) {
       theme_minimal() +
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
     
+  })
+  
+  output$map_plot <- renderPlot({
+    map
   })
 }
 
