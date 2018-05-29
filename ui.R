@@ -9,32 +9,26 @@ ui <- fluidPage(
   titlePanel("Washington Air & Weather"),
   sidebarLayout(
     sidebarPanel(
-      sliderInput(
-        "year",
-        "Years",
-        min = 2000,
-        max = 2016,
-        value = 2016
+      checkboxInput(
+        "categories",
+        colnames(values)
       ),
       selectInput(
         "select",
         label = "Select a category:",
-        choices = selections
-      ),
+        colnames(values)
+      )
+    ),
     mainPanel(
       tabsetPanel(
         type = "tabs",
         tabPanel("Table", 
-                 DT::dataTableOutput("data_table"),
+                 DT::dataTableOutput("data_table")),
         tabPanel("Plot", 
-                 plotOutput("plot", click = "plot_click"), 
-                 tags$strong(textOutput("plot_selec"))
-                )
+                 plotOutput("plot", click = "plot_click"))
         )
-      )
     )
   )
-)
 )
 
 shinyUI(ui)
