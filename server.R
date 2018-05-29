@@ -4,10 +4,10 @@ library(dplyr)
 library(ggplot2)
 library(DT)
 source("analysis.R")
-View(values)
+
 my_server <- function(input, output) {
   output$data_table <- renderDT({
-    values
+    data %>% select(city, Humidity, ATM.Pressure, Temperature)
   })
   
   output$plot_one <- renderPlot({
