@@ -51,7 +51,7 @@ my_server <- function(input, output) {
                  size = 4
                 ) +
       guides(color = FALSE) +
-      labs(title = paste0(input$select, " by States"),
+      labs(title = paste0(input$select, " by Cities"),
            x = "Cities",
            y = input$select
       )

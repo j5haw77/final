@@ -6,6 +6,7 @@ library(DT)
 source("analysis.R")
 
 ui <- fluidPage(
+  tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
   titlePanel("Washington Air & Weather"),
   br(),
   p("This project analyzes and visualizes environmental data received from the
