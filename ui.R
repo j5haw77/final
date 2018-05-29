@@ -47,7 +47,8 @@ ui <- fluidPage(
           )
         ),
         mainPanel(
-          plotOutput("pollut_plot", click = "plot_click")
+          plotOutput("pollut_plot", click = "plot_click"),
+          tableOutput("chosen_value")
         )
       )
     ),
