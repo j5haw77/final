@@ -41,7 +41,8 @@ ui <- fluidPage(
           plotOutput("pollut_plot", click = "plot_click")
         )
       )
-    )
+    ),
+    tabPanel("Map", plotOutput("map_plot"))
   )
 )
 
