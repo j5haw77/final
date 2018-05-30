@@ -4,8 +4,10 @@ library(ggplot2)
 library(DT)
 
 source("analysis.R")
+source("map.R")
 
 ui <- fluidPage(
+  tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
   titlePanel("Washington Air & Weather"),
   br(),
   p("This project analyzes and visualizes environmental data received from the
