@@ -67,11 +67,12 @@ my_server <- function(input, output) {
            min(data[input$select]), ", and the average is ", 
            sum(data[input$select]) / 20)
   })
+  
   output$map_stats <- renderText({
     table<-nearPoints(data,input$plot_click2)
     table <- rename(table,AQI="AQI (US EPA)")
     if(!is.null(input$plot_click2)){
-      paste0("City: ",table$City," AQI: ",table$AQI," Temperature: ",table$Temperature)
+      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", table$Temperature)
     }
   })
 }

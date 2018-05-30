@@ -65,10 +65,13 @@ ui <- fluidPage(
     tabPanel("Map", 
       sidebarLayout(
         sidebarPanel(
+          p("Click the points on the Map."),
+          p("Results show below:"),
           textOutput("map_stats")
-      ),
-      mainPanel(
-        plotOutput("map_plot", click = "plot_click2"))
+        ),
+        mainPanel(
+          plotOutput("map_plot", click = "plot_click2")
+        )
       )
     )
   ),
