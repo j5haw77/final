@@ -4,9 +4,6 @@ library(dplyr)
 library(ggplot2)
 library(DT)
 
-source("analysis.R")
-source("map.R")
-
 my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
   

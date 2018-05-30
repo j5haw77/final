@@ -4,6 +4,7 @@ library(ggplot2)
 library(DT)
 
 source("analysis.R")
+source("map.R")
 
 ui <- fluidPage(
   tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
