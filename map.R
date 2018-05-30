@@ -31,11 +31,13 @@ map <- ggplot(data = states) +
              stroke = 1,
              na.rm = TRUE
             )+
+  coord_fixed()+
   scale_fill_gradient(name = "Pollution in AQI rating", 
                       low = "white", 
                       high = "red"
                      ) +
   scale_size(name = "Temperature in C") +
+  
   coord_quickmap()
 
 map <- add_theme(map)

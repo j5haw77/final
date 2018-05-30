@@ -62,8 +62,16 @@ my_server <- function(input, output) {
   output$map_plot <- renderPlot({
     map
   })
+  
   output$stats <- renderText({
     paste0("Max=",max(data[input$select])," Min=",min(data[input$select])," Average=",sum(data[input$select])/20)
+  })
+  output$map_stats <- renderText({
+    table<-nearPoints(data,input$plot_click2)
+    table <- rename(table,AQI="AQI (US EPA)")
+    if(!is.null(input$plot_click2)){
+      paste0("City: ",table$City," AQI: ",table$AQI," Temperature: ",table$Temperature)
+    }
   })
 }
 
