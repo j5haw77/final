@@ -25,7 +25,11 @@ ui <- fluidPage(
                sidebarPanel(
                  p(em("Click the points on the Map.")),
                  p("Results show below:"),
-                 textOutput("map_stats")
+                 textOutput("map_stats"),
+                 p("These stats indicate that, since even the city with the
+                   most polluted air has an AQI rating below the 'Moderate'
+                   mark of 50, all of the most populous cities in Washington
+                   have relatively clean air.")
                ),
                mainPanel(
                  plotOutput("map_plot", click = "plot_click2")
