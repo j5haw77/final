@@ -19,57 +19,57 @@ ui <- fluidPage(
   br(),
   tabsetPanel(
     tabPanel("Table",
-      sidebarLayout(
-        sidebarPanel(
-          checkboxGroupInput(
-            inputId = "categories",
-            label = "Categories",
-            choices = c("Humidity", "Atm Pressure", "Temperature",
-                        "Wind Direction", "Wind Speed", "AQI (US EPA)", 
-                        "Main Pollutant (US)", "AQI (CN MEP)",      
-                        "Main Pollutant (CN)", "Latitude", "Longitude"),
-            selected = c("Humidity", "Atm Pressure", "Temperature", 
-                         "Latitude", "Longitude"),
-            inline = TRUE
-          )
-        ),
-        mainPanel(
-          h1("Table"),
-          p("The table below shows various data for each city. Which data is
-            displayed can be selected via the control panel."),
-          DT::dataTableOutput("data_table")
-        )
-      )
-    ),
+             sidebarLayout(
+               sidebarPanel(
+                 checkboxGroupInput(
+                   inputId = "categories",
+                   label = "Categories",
+                   choices = c("Humidity", "Atm Pressure", "Temperature",
+                               "Wind Direction", "Wind Speed", "AQI (US EPA)", 
+                               "Main Pollutant (US)", "AQI (CN MEP)",      
+                               "Main Pollutant (CN)", "Latitude", "Longitude"),
+                   selected = c("Humidity", "Atm Pressure", "Temperature", 
+                                "Latitude", "Longitude"),
+                   inline = TRUE
+                 )
+               ),
+               mainPanel(
+                 h1("Table"),
+                 p("The table below shows various data for each city. Which data is
+                   displayed can be selected via the control panel."),
+                 DT::dataTableOutput("data_table")
+                 )
+             )
+             ),
     tabPanel("Plot",
-      sidebarLayout(
-        sidebarPanel(
-          selectInput(
-            "select",
-            label = "Select a category:",
-            choices = c("Humidity", "Atm Pressure", "Temperature", 
-                        "Wind Speed", "AQI (US EPA)")
-          ),
-          br(),
-          tableOutput("chosen_value"),
-          textOutput("stats")
-          
-        ),
-        mainPanel(
-          plotOutput("pollut_plot", click = "plot_click")
-        )
-      )
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput(
+                   "select",
+                   label = "Select a category:",
+                   choices = c("Humidity", "Atm Pressure", "Temperature", 
+                               "Wind Speed", "AQI (US EPA)")
+                 ),
+                 br(),
+                 tableOutput("chosen_value"),
+                 textOutput("stats")
+                 
+               ),
+               mainPanel(
+                 plotOutput("pollut_plot", click = "plot_click")
+               )
+             )
     ),
     tabPanel("Map", plotOutput("map_plot"))
-  ),
+    ),
   br(),
   h1("Data Documentation"),
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
     stations around the world.",
     a(href = "https://www.airvisual.com/api", "Here's a link to their website.")
-    ),
+  ),
   p()
-)
+  )
 
 shinyUI(ui)
