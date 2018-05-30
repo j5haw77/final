@@ -18,8 +18,46 @@ ui <- fluidPage(
     temperature, atmospheric pressure, wind speed, and pollution for the 
     48-hour period prior to data acquisition."),
   br(),
-  h2("Interactive Table & Plots"),
+  h2("Washington State Pollution Plots & Table"),
   tabsetPanel(
+    tabPanel("Map", 
+             sidebarLayout(
+               sidebarPanel(
+                 p(em("Click the points on the Map.")),
+                 p("Results show below:"),
+                 textOutput("map_stats")
+               ),
+               mainPanel(
+                 plotOutput("map_plot", click = "plot_click2")
+               )
+             )
+    ),
+    tabPanel("Plot",
+      sidebarLayout(
+        sidebarPanel(
+          selectInput(
+            "select",
+            label = "Select a category:",
+            choices = c("AQI (US EPA)", "Humidity(%)", "Atm Pressure(hPa)", 
+                        "Temperature(°C)", "Wind Speed(mph)")
+          ),
+          p(em("The category drop-down menu allows you to interact with the plot 
+            on the right by selecting a specific category of data that 
+            you are interested in viewing.")),
+          p(em("By clicking on the points, a smaller table will be generated with 
+            relevant information. The small table below shows the City name, 
+            data of the selected category, the latitude, and longitude of the 
+            clicked point on the graph. (Initially, there is no table showing)")),
+          br(),
+          textOutput("stats")
+        ),
+        mainPanel(
+          plotOutput("pollut_plot", click = "plot_click"),
+          br(),
+          tableOutput("chosen_value")
+        )
+      )
+    ),
     tabPanel("Table",
       sidebarLayout(
         sidebarPanel(
@@ -33,7 +71,10 @@ ui <- fluidPage(
             selected = c("City", "Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
                          "Latitude", "Longitude"),
             inline = TRUE
-          )
+          ),
+          p(em('The "Categories" checkboxes above allow you to interact with the 
+                table on the right by checking different categories of data that
+                you wish to view, and the table will display them for you.'))
         ),
         mainPanel(
           h1("Table"),
@@ -43,37 +84,7 @@ ui <- fluidPage(
         )
       )
     ),
-    tabPanel("Plot",
-      sidebarLayout(
-        sidebarPanel(
-          selectInput(
-            "select",
-            label = "Select a category:",
-            choices = c("Humidity(%)", "Atm Pressure(hPa)", "Temperature(°C)", 
-                        "Wind Speed(mph)", "AQI (US EPA)")
-          ),
-          br(),
-          textOutput("stats"),
-          br(),
-          tableOutput("chosen_value")
-        ),
-        mainPanel(
-          plotOutput("pollut_plot", click = "plot_click")
-        )
-      )
-    ),
-    tabPanel("Map", 
-      sidebarLayout(
-        sidebarPanel(
-          p("Click the points on the Map."),
-          p("Results show below:"),
-          textOutput("map_stats")
-        ),
-        mainPanel(
-          plotOutput("map_plot", click = "plot_click2")
-        )
-      )
-    )
+    tabPanel("Q&A")
   ),
   br(),
   h2("Data Documentation"),
