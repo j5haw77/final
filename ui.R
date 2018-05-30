@@ -62,7 +62,15 @@ ui <- fluidPage(
         )
       )
     ),
-    tabPanel("Map", plotOutput("map_plot"))
+    tabPanel("Map", 
+      sidebarLayout(
+        sidebarPanel(
+          textOutput("map_stats")
+      ),
+      mainPanel(
+        plotOutput("map_plot", click = "plot_click2"))
+      )
+    )
   ),
   br(),
   h2("Data Documentation"),
