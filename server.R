@@ -15,7 +15,7 @@ my_server <- function(input, output) {
   
   output$pollut_plot <- renderPlot({
     data %>% select(City, input$categories, Latitude, Longitude) %>% 
-    ggplot(aes(x=City, y = data[input$select]), na.rm = TRUE) +
+    ggplot(aes(x=City, y = data[input$select], color = data[input$select], na.rm = TRUE) +
       geom_point(stat = "identity") +
       ylab(input$select) +
       theme_minimal() +
