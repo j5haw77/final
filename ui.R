@@ -38,16 +38,17 @@ ui <- fluidPage(
           selectInput(
             "select",
             label = "Select a category:",
-            choices = c("AQI (US EPA)", "Humidity(%)", "Atm Pressure(hPa)", 
-                        "Temperature(°C)", "Wind Speed(mph)")
+            choices = c("Temperature(°C)", "Humidity(%)", "Atm Pressure(hPa)", 
+                        "Wind Speed(mph)", "Wind Direction(°)")
           ),
           p(em("The category drop-down menu allows you to interact with the plot 
             on the right by selecting a specific category of data that 
             you are interested in viewing.")),
           p(em("By clicking on the points, a smaller table will be generated with 
             relevant information. The small table below shows the City name, 
-            data of the selected category, the latitude, and longitude of the 
-            clicked point on the graph. (Initially, there is no table showing)")),
+            AQI (US EPA) rating, data of the selected category, the latitude, 
+            and longitude of the clicked point on the graph. 
+            (Initially, there is no table showing)")),
           br(),
           textOutput("stats")
         ),
@@ -78,13 +79,19 @@ ui <- fluidPage(
         ),
         mainPanel(
           h1("Table"),
-          p("The table below shows various data for each city. Which data is
-            displayed can be selected via the control panel."),
+          p("The table below shows various data for each city."),
           DT::dataTableOutput("data_table")
         )
       )
     ),
-    tabPanel("Q&A")
+    tabPanel("Q&A",
+             br(),
+             tags$ol(
+               tags$li(p("Q: Is there a correlation between tempeture and level of
+                       pollution?"),
+                       p("A: No, based on the plot."))
+             )
+            )
   ),
   br(),
   h2("Data Documentation"),

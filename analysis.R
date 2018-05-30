@@ -24,7 +24,7 @@ add_theme <- function(plot) {
       plot.margin = margin(t=20, r=40, b=20, l=40),
       axis.title.x = element_text(size=16, face="bold", color="blue"),
       axis.title.y = element_text(size=16, face="bold", color="blue", margin = margin(r=10)),
-      axis.text.x = element_text(angle=90, size=12)
+      axis.text.x = element_text(size=12)
     )
 }
 

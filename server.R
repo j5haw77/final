@@ -8,15 +8,15 @@ my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
   
   selected_df <- reactive({
-    data %>% select(City, input$select, "Latitude", "Longitude")
+    data %>% select(City, "AQI (US EPA)", input$select, "Latitude", "Longitude")
   })
   
   observeEvent(input$plot_click, {
     selected <- nearPoints(selected_df(), 
                            input$plot_click, 
-                           xvar = "City", 
+                           xvar = "AQI (US EPA)", 
                            yvar = input$select)
-    colnames(selected) <- c("City", input$select, "Latitude", "Longitude")
+    colnames(selected) <- c("City", "AQI (US EPA)", input$select, "Latitude", "Longitude")
     reactive_vars$selected_value <- selected
     if (nrow(selected) == 0) {
       reactive_vars$selected_value <- NULL
@@ -40,7 +40,7 @@ my_server <- function(input, output) {
   
   output$pollut_plot <- renderPlot({
     plot <- ggplot(data = selected_df()) + 
-      geom_point(mapping = aes(x = City, 
+      geom_point(mapping = aes(x = data["AQI (US EPA)"], 
                                y = data[input$select], 
                                color = 
                                  (Latitude %in% reactive_vars$selected_value)),
@@ -49,8 +49,8 @@ my_server <- function(input, output) {
                  size = 4
                 ) +
       guides(color = FALSE) +
-      labs(title = paste0(input$select, " by Cities"),
-           x = "Cities",
+      labs(title = paste0(input$select, " by AQI (US EPA)"),
+           x = "AQI (US EPA)",
            y = input$select
       )
     add_theme(plot)
