@@ -4,9 +4,6 @@ library(dplyr)
 library(ggplot2)
 library(DT)
 
-source("analysis.R")
-source("map.R")
-
 my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
   
@@ -45,13 +42,14 @@ my_server <- function(input, output) {
     plot <- ggplot(data = selected_df()) + 
       geom_point(mapping = aes(x = City, 
                                y = data[input$select], 
-                               color = (Latitude %in% reactive_vars$selected_value)), 
+                               color = 
+                                 (Latitude %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
                  stat = "identity", 
                  size = 4
                 ) +
       guides(color = FALSE) +
-      labs(title = paste0(input$select, " by States"),
+      labs(title = paste0(input$select, " by Cities"),
            x = "Cities",
            y = input$select
       )
@@ -64,7 +62,9 @@ my_server <- function(input, output) {
   })
   
   output$stats <- renderText({
-    paste0("Max=",max(data[input$select])," Min=",min(data[input$select])," Average=",sum(data[input$select])/20)
+    paste0("Max = ",max(data[input$select]), 
+           " Min = ",min(data[input$select]),
+           " Average = ",sum(data[input$select]) / 20)
   })
   output$map_stats <- renderText({
     table<-nearPoints(data,input$plot_click2)
