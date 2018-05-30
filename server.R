@@ -4,8 +4,7 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(DT)
-source("analysis.R")
-source("map.R")
+
 
 my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
@@ -51,7 +50,7 @@ my_server <- function(input, output) {
                  size = 4
       ) +
       guides(color = FALSE) +
-      labs(title = paste0(input$select, " by States"),
+      labs(title = paste0(input$select, " by Cities"),
            x = "Cities",
            y = input$select
       )

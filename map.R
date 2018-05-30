@@ -6,7 +6,6 @@ library("plotly")
 library("grid")
 
 map_with_values <- read.csv("air_visual_data.csv")
-source("analysis.R")
 
 states <- map_data("state")
 states <- filter(states,region=="washington",subregion=="main")
