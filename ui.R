@@ -91,9 +91,29 @@ ui <- fluidPage(
     tabPanel("Q&A",
              br(),
              tags$ol(
-               tags$li(p("Q: Is there a correlation between tempeture and level of
-                       pollution?"),
-                       p("A: No, based on the plot."))
+               tags$li(p("Q: Is there a correlation between tempeture and level 
+                          of pollution?"),
+                       p("A: No, based on the point distribution of the plot 
+                         there is no strong correlation between temperature and
+                         level of pollution.")
+                      ),
+               tags$li(p("Q: How heavily polluted are cities in Washington?"),
+                       p(paste0("A: According to our plot, Cities in Washington
+                                State are not heavily polluted. Based on the 
+                                maximum rating of AQI, which is ", max, ", 
+                                cities have good air quality with little 
+                                potential to affect public health.")),
+               tags$li(p("Q: Are there regions in Washington that are more 
+                         polluted than others?"),
+                       p("A: According to the Map visualization, the more 
+                         polluted cities are located near the Puget Sound. 
+                         This is in part due to high motor vehicle use, a busy
+                         harbor and an abundance of factories. However, Yakima,
+                         despite being far from Puget Sound is heavily
+                         polluted. This is potentially due to large amounts of
+                         agricultural activities mixing with motor vehicle 
+                         emissions.")
+               )
              )
             )
   ),
