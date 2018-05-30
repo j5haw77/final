@@ -42,14 +42,13 @@ my_server <- function(input, output) {
   })
   
   output$pollut_plot <- renderPlot({
-<<<<<<< HEAD
     data %>% select(City, input$categories, Latitude, Longitude) %>% 
     ggplot(aes(x=City, y = data[input$select], color = data[input$select], na.rm = TRUE) +
       geom_point(stat = "identity") +
       ylab(input$select) +
       theme_minimal() +
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
-=======
+
     plot <- ggplot(data = selected_df()) + 
       geom_point(mapping = aes(x = City, 
                                y = data[input$select], 
@@ -64,8 +63,6 @@ my_server <- function(input, output) {
            y = input$select
       )
     add_theme(plot)
->>>>>>> 96ccd7062b67e36bb697b867698fcfd5372d9e9e
-    
   })
   
   output$map_plot <- renderPlot({
