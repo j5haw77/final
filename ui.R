@@ -26,11 +26,11 @@ ui <- fluidPage(
           checkboxGroupInput(
             inputId = "categories",
             label = "Categories",
-            choices = c("Humidity", "Atm Pressure", "Temperature",
-                        "Wind Direction", "Wind Speed", "AQI (US EPA)", 
-                        "Main Pollutant (US)", "AQI (CN MEP)",      
+            choices = c("City", "Humidity(%)", "Atm Pressure(hPa)", 
+                        "Temperature(C)", "Wind Direction(°)", "Wind Speed(mph)", 
+                        "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                         "Main Pollutant (CN)", "Latitude", "Longitude"),
-            selected = c("Humidity", "AQI (US EPA)", "Temperature", 
+            selected = c("Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
                          "Latitude", "Longitude"),
             inline = TRUE
           )
@@ -49,8 +49,8 @@ ui <- fluidPage(
           selectInput(
             "select",
             label = "Select a category:",
-            choices = c("Humidity", "Atm Pressure", "Temperature", 
-                        "Wind Speed", "AQI (US EPA)")
+            choices = c("Humidity(%)", "Atm Pressure(hPa)", "Temperature(C)", 
+                        "Wind Speed(mph)", "AQI (US EPA)")
           ),
           br(),
           tableOutput("chosen_value"),
