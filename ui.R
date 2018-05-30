@@ -27,10 +27,10 @@ ui <- fluidPage(
             inputId = "categories",
             label = "Categories",
             choices = c("City", "Humidity(%)", "Atm Pressure(hPa)", 
-                        "Temperature(C)", "Wind Direction(°)", "Wind Speed(mph)", 
+                        "Temperature(°C)", "Wind Direction(°)", "Wind Speed(mph)", 
                         "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                         "Main Pollutant (CN)", "Latitude", "Longitude"),
-            selected = c("Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
+            selected = c("City", "Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
                          "Latitude", "Longitude"),
             inline = TRUE
           )
@@ -49,20 +49,28 @@ ui <- fluidPage(
           selectInput(
             "select",
             label = "Select a category:",
-            choices = c("Humidity(%)", "Atm Pressure(hPa)", "Temperature(C)", 
+            choices = c("Humidity(%)", "Atm Pressure(hPa)", "Temperature(°C)", 
                         "Wind Speed(mph)", "AQI (US EPA)")
           ),
           br(),
-          tableOutput("chosen_value"),
-          textOutput("stats")
-          
+          textOutput("stats"),
+          br(),
+          tableOutput("chosen_value")
         ),
         mainPanel(
           plotOutput("pollut_plot", click = "plot_click")
         )
       )
     ),
-    tabPanel("Map", plotOutput("map_plot"))
+    tabPanel("Map", 
+      sidebarLayout(
+        sidebarPanel(
+          textOutput("map_stats")
+      ),
+      mainPanel(
+        plotOutput("map_plot", click = "plot_click2"))
+      )
+    )
   ),
   br(),
   h2("Data Documentation"),
