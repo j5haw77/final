@@ -69,10 +69,11 @@ my_server <- function(input, output) {
   })
   
   output$map_stats <- renderText({
-    table<-nearPoints(data,input$plot_click2)
-    table <- rename(table,AQI="AQI (US EPA)")
-    if(!is.null(input$plot_click2)){
-      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", table$Temperature)
+    table <- nearPoints(data, input$plot_click2)
+    table <- rename(table, AQI="AQI (US EPA)")
+    if (nrow(table) > 0) {
+      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", 
+             table$Temperature, "°C")
     }
   })
 }
