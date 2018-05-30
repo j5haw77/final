@@ -33,7 +33,8 @@ ui <- fluidPage(
         ),
         mainPanel(
           h1("Table"),
-          p("The table below shows various data for each city."),
+          p("The table below shows various data for each city. Which data is
+            displayed can be selected via the control panel."),
           DT::dataTableOutput("data_table")
         )
       )
@@ -58,7 +59,15 @@ ui <- fluidPage(
       )
     ),
     tabPanel("Map", plotOutput("map_plot"))
-  )
+  ),
+  br(),
+  h1("Data Documentation"),
+  p("The data presented here originated from Air Visual, a company that
+    manufactures home air quality monitors and gathers data from weather
+    stations around the world.",
+    a(href = "https://www.airvisual.com/api", "Here's a link to their website.")
+    ),
+  p()
 )
 
 shinyUI(ui)
