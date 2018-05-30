@@ -49,7 +49,9 @@ ui <- fluidPage(
                         "Wind Speed", "AQI (US EPA)")
           ),
           br(),
-          tableOutput("chosen_value")
+          tableOutput("chosen_value"),
+          textOutput("stats")
+          
         ),
         mainPanel(
           plotOutput("pollut_plot", click = "plot_click")

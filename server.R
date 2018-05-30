@@ -62,6 +62,9 @@ my_server <- function(input, output) {
   output$map_plot <- renderPlot({
     map
   })
+  output$stats <- renderText({
+    paste0("Max=",max(data[input$select])," Min=",min(data[input$select])," Average=",sum(data[input$select])/20)
+  })
 }
 
 shinyServer(my_server)
