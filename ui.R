@@ -10,6 +10,7 @@ ui <- fluidPage(
   tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
   titlePanel("Washington Air & Weather"),
   br(),
+  h1("Introduction"),
   p("This project analyzes and visualizes environmental data received from the
     Air Visual database for the 20 most populous cities in Washington with 
     information on the database on May 28th, 2018. This data includes 
@@ -17,6 +18,7 @@ ui <- fluidPage(
     temperature, atmospheric pressure, wind speed, and pollution for the 
     48-hour period prior to data acquisition."),
   br(),
+  h2("Interactive Table & Plots"),
   tabsetPanel(
     tabPanel("Table",
       sidebarLayout(
@@ -28,7 +30,7 @@ ui <- fluidPage(
                         "Wind Direction", "Wind Speed", "AQI (US EPA)", 
                         "Main Pollutant (US)", "AQI (CN MEP)",      
                         "Main Pollutant (CN)", "Latitude", "Longitude"),
-            selected = c("Humidity", "Atm Pressure", "Temperature", 
+            selected = c("Humidity", "AQI (US EPA)", "Temperature", 
                          "Latitude", "Longitude"),
             inline = TRUE
           )
@@ -63,7 +65,7 @@ ui <- fluidPage(
     tabPanel("Map", plotOutput("map_plot"))
   ),
   br(),
-  h1("Data Documentation"),
+  h2("Data Documentation"),
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
     stations around the world.",
