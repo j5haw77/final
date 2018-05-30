@@ -61,9 +61,10 @@ my_server <- function(input, output) {
     map
   })
   output$stats <- renderText({
-    paste0("Max = ",max(data[input$select]), 
-           " Min = ",min(data[input$select]),
-           " Average = ",sum(data[input$select]) / 20)
+    paste0("In the chosen category: ", input$select, ", the maximum value is ",
+           max(data[input$select]), ", the minimum value is ", 
+           min(data[input$select]), ", and the average is ", 
+           sum(data[input$select]) / 20)
   })
 }
 
