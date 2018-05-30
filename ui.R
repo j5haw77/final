@@ -69,9 +69,23 @@ ui <- fluidPage(
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
     stations around the world.",
-    a(href = "https://www.airvisual.com/api", "Here's a link to their website.")
-    ),
-  p()
+    a(href = "https://www.airvisual.com/api", "Here's a link to their website."),
+    br(),
+    "Each category of data obtained from Air Visual is explained below:",
+    tags$ul(
+      tags$li("Humidity: Percentage of water vapor content in the air
+              relative to the maximum amount possible for the air temperature."),
+      tags$li("Atm Pressure: The amount of pressure exerted by the air, measured
+              in hectopascals (hPa)."),
+      tags$li("Temperature: Measured in degrees Celsius."),
+      tags$li("Wind Direction: Measured in degrees clockwise from due north."),
+      tags$li("Wind Speed: Measured in miles per hour."),
+      tags$li("AQI: The Air Quality Index is a rating given by the EPA representing
+              how polluted an area's air is at time of measurement, from
+              between 0 and 500. A rating below 50 is considered clean, while
+              a rating over 100 is considered dangerous.")
+    )
+  )
 )
 
 shinyUI(ui)
