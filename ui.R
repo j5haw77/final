@@ -82,19 +82,32 @@ ui <- fluidPage(
     stations around the world.",
     a(href = "https://www.airvisual.com/api", "Here's a link to their website."),
     br(),
-    "Each category of data obtained from Air Visual is explained below:",
+    "Categories of data obtained from Air Visual is explained below:",
     tags$ul(
       tags$li("Humidity: Percentage of water vapor content in the air
               relative to the maximum amount possible for the air temperature."),
       tags$li("Atm Pressure: The amount of pressure exerted by the air, measured
               in hectopascals (hPa)."),
-      tags$li("Temperature: Measured in degrees Celsius."),
       tags$li("Wind Direction: Measured in degrees clockwise from due north."),
-      tags$li("Wind Speed: Measured in miles per hour."),
-      tags$li("AQI: The Air Quality Index is a rating given by the EPA representing
+      tags$li("AQI (US EPA): The Air Quality Index is a rating given by the EPA representing
               how polluted an area's air is at time of measurement, from
               between 0 and 500. A rating below 50 is considered clean, while
-              a rating over 100 is considered dangerous.")
+              a rating over 100 is considered dangerous."),
+      tags$li("AQI (CN MEP): Similar to the US AQI, but measured and maintained
+              by China's Ministry of Ecology and Environment"),
+      tags$li("Main Pollutant: The pollutant most prevalent in the atmosphere
+              for that city, as measured by either the US EPA (US) or
+              Chinese MEP (CN). The pollutants are abbreviated as follows:",
+              tags$ul(
+                tags$li("p2: Atmospheric particulates that have a diameter of
+                        less than 2.5 micrometers (pm2.5)"),
+                tags$li("p1: Atmospheric particulates that have a diameter
+                        between 2.5 and 10 micrometers (pm10)"),
+                tags$li("o3: Ozone (O3)"),
+                tags$li("n2: Nitrogen dioxide (NO2)"),
+                tags$li("s2: Sulfur dioxide (SO2)"),
+                tags$li("co: Carbon monoxide (CO)")
+              ))
     )
   )
 )
