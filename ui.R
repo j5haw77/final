@@ -18,8 +18,51 @@ ui <- fluidPage(
     temperature, atmospheric pressure, wind speed, and pollution for the 
     48-hour period prior to data acquisition."),
   br(),
-  h2("Interactive Table & Plots"),
+  h2("Washington State Pollution Plots & Table"),
   tabsetPanel(
+    tabPanel("Map", 
+             sidebarLayout(
+               sidebarPanel(
+                 p(em("Click the points on the Map.")),
+                 p("Results show below:"),
+                 textOutput("map_stats"),
+                 p("These stats indicate that, since even the city with the
+                   most polluted air has an AQI rating below the 'Moderate'
+                   mark of 50, all of the most populous cities in Washington
+                   have relatively clean air.")
+               ),
+               mainPanel(
+                 plotOutput("map_plot", click = "plot_click2")
+               )
+             )
+    ),
+    tabPanel("Plot",
+      sidebarLayout(
+        sidebarPanel(
+          selectInput(
+            "select",
+            label = "Select a category:",
+            choices = c("Temperature(°C)", "Humidity(%)", "Atm Pressure(hPa)", 
+                        "Wind Speed(mph)", "Wind Direction(°)")
+          ),
+          p(em("The category drop-down menu allows you to interact with the plot 
+            on the right by selecting a specific category of data that 
+            you are interested in viewing.")),
+          p(em("By clicking on the points, a smaller table will be generated with 
+            relevant information. The small table below shows the City name, 
+            AQI (US EPA) rating, data of the selected category, the latitude, 
+            and longitude of the clicked point on the graph. 
+            (Initially, there is no table showing)")),
+          br(),
+          textOutput("stats")
+        ),
+        mainPanel(
+          plotOutput("pollut_plot", click = "plot_click"),
+          br(),
+          tableOutput("chosen_value")
+        )
+      )
+    ),
     tabPanel("Table",
       sidebarLayout(
         sidebarPanel(
@@ -33,44 +76,47 @@ ui <- fluidPage(
             selected = c("City", "Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
                          "Latitude", "Longitude"),
             inline = TRUE
-          )
+          ),
+          p(em('The "Categories" checkboxes above allow you to interact with the 
+                table on the right by checking different categories of data that
+                you wish to view, and the table will display them for you.'))
         ),
         mainPanel(
           h1("Table"),
-          p("The table below shows various data for each city. Which data is
-            displayed can be selected via the control panel."),
+          p("The table below shows various data for each city."),
           DT::dataTableOutput("data_table")
         )
       )
     ),
-    tabPanel("Plot",
-      sidebarLayout(
-        sidebarPanel(
-          selectInput(
-            "select",
-            label = "Select a category:",
-            choices = c("Humidity(%)", "Atm Pressure(hPa)", "Temperature(°C)", 
-                        "Wind Speed(mph)", "AQI (US EPA)")
-          ),
-          br(),
-          textOutput("stats"),
-          br(),
-          tableOutput("chosen_value")
-        ),
-        mainPanel(
-          plotOutput("pollut_plot", click = "plot_click")
-        )
-      )
-    ),
-    tabPanel("Map", 
-      sidebarLayout(
-        sidebarPanel(
-          textOutput("map_stats")
-      ),
-      mainPanel(
-        plotOutput("map_plot", click = "plot_click2"))
-      )
-    )
+    tabPanel("Q&A",
+             br(),
+             tags$ol(
+               tags$li(p("Q: Is there a correlation between tempeture and level 
+                          of pollution?"),
+                       p("A: No, based on the point distribution of the plot 
+                         there is no strong correlation between temperature and
+                         level of pollution.")
+                      ),
+               tags$li(p("Q: How heavily polluted are cities in Washington?"),
+                       p(paste0("A: According to our plot, Cities in Washington
+                                State are not heavily polluted. Based on the 
+                                maximum rating of AQI, which is ", max, ", 
+                                cities have good air quality with little 
+                                potential to affect public health."))
+               ),
+               tags$li(p("Q: Are there regions in Washington that are more 
+                         polluted than others?"),
+                       p("A: According to the Map visualization, the more 
+                         polluted cities are located near the Puget Sound. 
+                         This is possibly due to high motor vehicle use, a busy
+                         harbor and an abundance of factories. However, Yakima,
+                         despite being far from Puget Sound is heavily
+                         polluted. This is potentially due to large amounts of
+                         agricultural activities mixing with motor vehicle 
+                         emissions.")
+               )
+             )
+            )
   ),
   br(),
   h2("Data Documentation"),
