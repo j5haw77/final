@@ -65,6 +65,8 @@ ui <- fluidPage(
                  p(em("The category drop-down menu allows you to interact with the plot 
                       on the right by selecting a specific category of data that 
                       you are interested in viewing.")),
+                 p(em("By hovering onto the points, text will appear below the plot with
+                      city name and AQI rating.")),
                  p(em("By clicking on the points, a smaller table will be generated with 
                       relevant information. The small table below shows the City name, 
                       AQI (US EPA) rating, data of the selected category, the latitude, 
@@ -74,7 +76,9 @@ ui <- fluidPage(
                  textOutput("stats")
                  ),
                mainPanel(
-                 plotOutput("pollute_plot", click = "plot_click", width = "100%"),
+                 plotOutput("pollute_plot", click = "plot_click",
+                            hover = hoverOpts(id = "pollute_hover"), width = "100%"),
+                 textOutput("hover_text"),
                  br(),
                  tableOutput("chosen_value")
                )

@@ -72,6 +72,19 @@ my_server <- function(input, output) {
     add_theme(plot)
   }, height = 420, width = 600)
   
+  output$hover_text <- renderText({
+    df <- selected_df()
+    selected <- nearPoints(df, 
+                           input$pollute_hover, 
+                           xvar = "AQI (US EPA)", 
+                           yvar = input$select)
+    if (nrow(selected) > 0) {
+      paste0("City: ", selected$City, ", AQI: ", selected["AQI (US EPA)"], ".")
+    } else {
+      paste("Hover onto the points on the Plot to view details.")
+    }
+  })
+  
   output$map_plot <- renderPlot({
     map
   }, height = 450, width = 650)
