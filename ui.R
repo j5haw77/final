@@ -14,17 +14,26 @@ source("map.R")
 ui <- fluidPage(
   theme = shinytheme("yeti"),
   tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
-  titlePanel("Washington Air & Weather"),
-  br(),
-  h1("Introduction"),
+  titlePanel(strong("Washington Air & Weather")),
+  h3(strong("Introduction")),
   p("This project analyzes and visualizes environmental data received from the
     Air Visual database for the 40 most populous cities in Washington with 
     information on the database on May 28th, 2018. This data includes 
     information on multiple measurements of the environment, including 
     temperature, atmospheric pressure, wind speed, and pollution for the 
-    48-hour period prior to data acquisition."),
-  br(),
-  h2("Washington State Pollution Plots & Table"),
+    48-hour period prior to data acquisition. In different modules below, you
+    will have a chance to explore the data we gathered from the Air Visual
+    API by utilizing different control panels on the left."),
+  p("Our main focus is on the levels of pollution in various cities in 
+    Washington State. Furthermore, we are interested in the relationships
+    between pollution levels and other weather factors, such as temperature, 
+    atmospheric pressure, and wind speed, as well as populations. We predict
+    that population will probably be the one that has a stronger correlation
+    with levels of pollution than other weather factors, since larger 
+    population in the cities implies the greater need for the use of motor 
+    vehicles and/or for jobs that end up producing pollutant and releasing 
+    into the air, such as factories."),
+  h3(strong("Washington State Pollution Plots & Table")),
   tabsetPanel(
     tabPanel("Washington Map", 
              sidebarLayout(
@@ -156,7 +165,7 @@ ui <- fluidPage(
     )
   ),
   br(), br(), br(),
-  h2("Data Documentation"),
+  h3(strong("Data Documentation")),
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
     stations around the world.",
