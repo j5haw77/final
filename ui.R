@@ -35,21 +35,6 @@ ui <- fluidPage(
     into the air, such as factories."),
   h3(strong("Washington State Pollution Plots & Table")),
   tabsetPanel(
-    tabPanel("Population Plot",
-             sidebarLayout(
-               sidebarPanel(
-                 p("This plot shows the relationship between the population
-                   and Air Quality Index rating (provided by the EPA) for each
-                   city."),
-                 p("This plot shows that, of the most populous cities in
-                   Seattle, there is no significant relationship between
-                   population and air pollution.")
-               ),
-               mainPanel(
-                 plotOutput("pop_plot")
-               )
-             )
-             ),
     tabPanel("Washington Map", 
              sidebarLayout(
                sidebarPanel(
@@ -67,6 +52,21 @@ ui <- fluidPage(
                              width = "100%")
                 )
               )
+    ),
+    tabPanel("Population Plot",
+             sidebarLayout(
+               sidebarPanel(
+                 p("This plot shows the relationship between the population
+                   and Air Quality Index rating (provided by the EPA) for each
+                   city."),
+                 p("This plot shows that, of the most populous cities in
+                   Seattle, there is no significant relationship between
+                   population and air pollution.")
+               ),
+               mainPanel(
+                 plotOutput("pop_plot")
+               )
+             )
     ),
     tabPanel("Pollution Plot",
              sidebarLayout(
