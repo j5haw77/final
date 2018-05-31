@@ -26,6 +26,20 @@ ui <- fluidPage(
   br(),
   h2("Washington State Pollution Plots & Table"),
   tabsetPanel(
+    tabPanel("Population Plot",
+             sidebarLayout(
+               sidebarPanel(
+                 p("This plot shows the relationship between the population
+                   and Air Quality Index rating (provided by the EPA) for each
+                   city."),
+                 p("Click on a point to view information about the city it
+                   represents.")
+               ),
+               mainPanel(
+                 plotOutput("pop_plot")
+               )
+             )
+             ),
     tabPanel("Map", 
              sidebarLayout(
                sidebarPanel(
@@ -65,7 +79,7 @@ ui <- fluidPage(
                  textOutput("stats")
                  ),
                mainPanel(
-                 plotOutput("pollut_plot", click = "plot_click"),
+                 plotOutput("pollut_plot", click = "pollut_plot_click"),
                  br(),
                  tableOutput("chosen_value")
                )
@@ -96,7 +110,7 @@ ui <- fluidPage(
                )
                  )
     ),
-    tabPanel("Plot",
+    tabPanel("Bar Plot",
              sidebarLayout(
                sidebarPanel(
                  radioButtons(

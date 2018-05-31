@@ -6,9 +6,9 @@ my_server <- function(input, output) {
                     Population)
   })
   
-  observeEvent(input$plot_click, {
+  observeEvent(input$pollut_plot_click, {
     selected <- nearPoints(selected_df(), 
-                           input$plot_click, 
+                           input$pollut_plot_click, 
                            xvar = "AQI (US EPA)", 
                            yvar = input$select)
     colnames(selected) <- c("City", "AQI (US EPA)", input$select, 
@@ -80,6 +80,14 @@ my_server <- function(input, output) {
     } else {
       paste("Hover onto the points on the Map to view details.")
     }
+  })
+  
+  output$pop_plot <- renderPlot({
+    ggplot(data = data, aes(x = Population, y = data[["AQI (US EPA)"]])) +
+      geom_point(mapping = aes(color = Population), size = 4) +
+      geom_smooth(method = lm) +
+      guides(color = FALSE)+
+      labs(y = "Air Quality Index (US EPA) Rating")
   })
 }
 

@@ -23,3 +23,5 @@ add_theme <- function(plot) {
 }
 
 max <- max(data["AQI (US EPA)"])
+
+
