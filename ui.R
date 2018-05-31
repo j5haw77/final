@@ -41,8 +41,9 @@ ui <- fluidPage(
                  p("This plot shows the relationship between the population
                    and Air Quality Index rating (provided by the EPA) for each
                    city."),
-                 p("Click on a point to view information about the city it
-                   represents.")
+                 p("This plot shows that, of the most populous cities in
+                   Seattle, there is no significant relationship between
+                   population and air pollution.")
                ),
                mainPanel(
                  plotOutput("pop_plot")
