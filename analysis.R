@@ -7,8 +7,8 @@ library(DT)
 data <- read.csv("air_visual_data.csv")
 data <- data %>% 
   select(-X)
-colnames(data) <- c("City", "Humidity", "Weather Icon Code", "Atm Pressure", 
-                    "Temperature", "Wind Direction", "Wind Speed", 
+colnames(data) <- c("City", "Humidity(%)", "Weather Icon Code", "Atm Pressure(hPa)", 
+                    "Temperature(°C)", "Wind Direction(°)", "Wind Speed(mph)", 
                     "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                     "Main Pollutant (CN)", "Latitude", "Longitude")
 

@@ -21,6 +21,51 @@ ui <- fluidPage(
   h2("Interactive Table & Plots"),
   tabsetPanel(
     tabPanel("Table",
+<<<<<<< HEAD
+             sidebarLayout(
+               sidebarPanel(
+                 checkboxGroupInput(
+                   inputId = "categories",
+                   label = "Categories",
+                   choices = c("Humidity", "Atm Pressure", "Temperature",
+                               "Wind Direction", "Wind Speed", "AQI (US EPA)", 
+                               "Main Pollutant (US)", "AQI (CN MEP)",      
+                               "Main Pollutant (CN)", "Latitude", "Longitude"),
+                   selected = c("Humidity", "Atm Pressure", "Temperature", 
+                                "Latitude", "Longitude"),
+                   inline = TRUE
+                 )
+               ),
+               mainPanel(
+                 h1("Table"),
+                 p("The table below shows various data for each city. Which data is
+                   displayed can be selected via the control panel."),
+                 DT::dataTableOutput("data_table")
+                 )
+             )
+             ),
+    tabPanel("Plot",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput(
+                   "select",
+                   label = "Select a category:",
+                   choices = c("Humidity", "Atm Pressure", "Temperature", 
+                               "Wind Speed", "AQI (US EPA)")
+                 ),
+                 br(),
+                 tableOutput("chosen_value"),
+                 textOutput("stats")
+                 
+               ),
+               mainPanel(
+                 plotOutput("pollut_plot", click = "plot_click")
+               )
+             )
+    ),
+    tabPanel("Map", plotOutput("map_plot"))
+    ),
+=======
       sidebarLayout(
         sidebarPanel(
           checkboxGroupInput(
@@ -72,11 +117,18 @@ ui <- fluidPage(
       )
     )
   ),
+>>>>>>> ebfceb418fd98f484c2a1287b4fc5d0da836e7ff
   br(),
   h2("Data Documentation"),
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
     stations around the world.",
+<<<<<<< HEAD
+    a(href = "https://www.airvisual.com/api", "Here's a link to their website.")
+  ),
+  p()
+  )
+=======
     a(href = "https://www.airvisual.com/api", "Here's a link to their website."),
     br(),
     "Categories of data obtained from Air Visual is explained below:",
@@ -108,5 +160,6 @@ ui <- fluidPage(
     )
   )
 )
+>>>>>>> ebfceb418fd98f484c2a1287b4fc5d0da836e7ff
 
 shinyUI(ui)

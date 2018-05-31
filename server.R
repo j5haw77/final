@@ -44,7 +44,8 @@ my_server <- function(input, output) {
     plot <- ggplot(data = selected_df()) + 
       geom_point(mapping = aes(x = City, 
                                y = data[input$select], 
-                               color = (Latitude %in% reactive_vars$selected_value)), 
+                               color = 
+                                 (Latitude %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
                  stat = "identity", 
                  size = 4
@@ -61,8 +62,19 @@ my_server <- function(input, output) {
   output$map_plot <- renderPlot({
     map
   })
+  
   output$stats <- renderText({
-    paste0("Max=",max(data[input$select])," Min=",min(data[input$select])," Average=",sum(data[input$select])/20)
+    paste0("In the chosen category: ", input$select, ", the maximum value is ",
+           max(data[input$select]), ", the minimum value is ", 
+           min(data[input$select]), ", and the average is ", 
+           sum(data[input$select]) / 20)
+  })
+  output$map_stats <- renderText({
+    table<-nearPoints(data,input$plot_click2)
+    table <- rename(table,AQI="AQI (US EPA)")
+    if(!is.null(input$plot_click2)){
+      paste0("City: ",table$City," AQI: ",table$AQI," Temperature: ",table$Temperature)
+    }
   })
 }
 
