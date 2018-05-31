@@ -3,6 +3,10 @@ library(dplyr)
 library(ggplot2)
 library(DT)
 library(shinythemes)
+library(hexbin)
+library(tidyr)
+library(plotly)
+library(grid)
 
 source("analysis.R")
 source("map.R")
@@ -35,18 +39,19 @@ ui <- fluidPage(
                    have relatively clean air.")
                  ),
                mainPanel(
-                 plotOutput("map_plot", hover = hoverOpts(id = "plot_click2"))
+                 plotOutput("map_plot", hover = hoverOpts(id = "plot_hover"))
                )
-                 )
-             ),
+              )
+    ),
     tabPanel("Plot",
              sidebarLayout(
                sidebarPanel(
                  selectInput(
                    "select",
                    label = "Select a category:",
-                   choices = c("Temperature(C)", "Humidity(%)", "Atm Pressure(hPa)", 
-                               "Wind Speed(mph)", "Wind Direction()")
+                   choices = c("Temperature(C)", "Humidity(%)", 
+                               "Atm Pressure(hPa)", "Wind Speed(mph)", 
+                               "Wind Direction")
                  ),
                  p(em("The category drop-down menu allows you to interact with the plot 
                       on the right by selecting a specific category of data that 
@@ -64,19 +69,19 @@ ui <- fluidPage(
                  br(),
                  tableOutput("chosen_value")
                )
-                 )
-                 ),
+              )
+    ),
     tabPanel("Table",
              sidebarLayout(
                sidebarPanel(
                  checkboxGroupInput(
                    inputId = "categories",
                    label = "Categories",
-                   choices = c("City", "Humidity(%)", "Atm Pressure(hPa)", 
-                               "Temperature(C)", "Wind Direction()", "Wind Speed(mph)", 
+                   choices = c("City", "Population", "Humidity(%)", "Atm Pressure(hPa)", 
+                               "Temperature(C)", "Wind Direction", "Wind Speed(mph)", 
                                "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                                "Main Pollutant (CN)", "Latitude", "Longitude"),
-                   selected = c("City", "Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
+                   selected = c("City", "Population", "AQI (US EPA)", 
                                 "Latitude", "Longitude"),
                    inline = TRUE
                  ),
@@ -89,7 +94,7 @@ ui <- fluidPage(
                  p("The table below shows various data for each city."),
                  DT::dataTableOutput("data_table")
                )
-                 )
+              )
     ),
     tabPanel("Q&A",
              br(),
@@ -125,10 +130,10 @@ ui <- fluidPage(
                                 motor vehicles being used the humidity should 
                                 increase because water vapor is a product of 
                                 burning gas."))
-                       )
-               
-                       )
-                       ),
+                )
+              )
+      )
+    ),
     br(),
     h2("Data Documentation"),
     p("The data presented here originated from Air Visual, a company that
@@ -143,9 +148,9 @@ ui <- fluidPage(
         tags$li("Atm Pressure: The amount of pressure exerted by the air, measured
                 in hectopascals (hPa)."),
         tags$li("Wind Direction: Measured in degrees clockwise from due north."),
-        tags$li("AQI (US EPA): The Air Quality Index is a rating given by the EPA representing
-                how polluted an area's air is at time of measurement, from
-                between 0 and 500. A rating below 50 is considered clean, while
+        tags$li("AQI (US EPA): The Air Quality Index is a rating given by the EPA 
+                representing how polluted an area's air is at time of measurement, 
+                from between 0 and 500. A rating below 50 is considered clean, while
                 a rating over 100 is considered dangerous."),
         tags$li("AQI (CN MEP): Similar to the US AQI, but measured and maintained
                 by China's Ministry of Ecology and Environment"),
@@ -161,10 +166,10 @@ ui <- fluidPage(
                   tags$li("n2: Nitrogen dioxide (NO2)"),
                   tags$li("s2: Sulfur dioxide (SO2)"),
                   tags$li("co: Carbon monoxide (CO)")
-                  ))
+                )
         )
-        )
-                       )
-               )
+      )
+  )
+)
 
 shinyUI(ui)
