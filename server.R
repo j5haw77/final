@@ -23,6 +23,11 @@ my_server <- function(input, output) {
     }
   })
   
+  output$plot_city <- renderPlot({
+    ggplot(data, aes(x = City, y = data[input$button])) +
+      geom_bar(stat = "identity")
+  })
+  
   observeEvent(input$select, {
     reactive_vars$selected_value <- NULL
   })

@@ -129,6 +129,22 @@ ui <- fluidPage(
                
                        )
                        ),
+    tabPanel("Plot",
+             sidebarLayout(
+               sidebarPanel(
+                 radioButtons(
+                   "button",
+                   "Select a category:",
+                   c("AQI Pollution Index Score" = "AQI (US EPA)",
+                    "Temperature" = "Temperature(C)", 
+                    "Wind Direction" = "Wind Direction()", 
+                    "Wind Speed " = "Wind Speed(mph)"))
+              ),
+              mainPanel(
+                plotOutput("plot_city")
+              )
+            )
+    ),
     br(),
     h2("Data Documentation"),
     p("The data presented here originated from Air Visual, a company that
