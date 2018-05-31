@@ -6,9 +6,9 @@ my_server <- function(input, output) {
                     Population)
   })
   
-  observeEvent(input$pollut_plot_click, {
+  observeEvent(input$plot_click, {
     selected <- nearPoints(selected_df(), 
-                           input$pollut_plot_click, 
+                           input$plot_click, 
                            xvar = "AQI (US EPA)", 
                            yvar = input$select)
     reactive_vars$select <- selected
