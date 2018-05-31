@@ -32,9 +32,7 @@ my_server <- function(input, output) {
            y = input$button,
            fill = input$button
       ) +
-      theme(
-        axis.text.x = element_text(angle=90)
-      )
+       coord_flip()
     city_plot <- add_theme(city_plot)
     city_plot
   }, height = 450, width = 650)
