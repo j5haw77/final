@@ -17,7 +17,11 @@ map_with_values  <- rename(map_with_values , Pressure="ATM.Pressure")
 map_with_values  <- rename(map_with_values , Temperature="Temperature")
 map_with_values  <- rename(map_with_values , Pollution="AQI.CN.MEP.")
 
+<<<<<<< HEAD
  map <-ggplot(data = states) +
+=======
+ggplot(data = states) +
+>>>>>>> 3a7b7fa56e6f7a77e1542fcb1f82916e5f3dba08
   geom_polygon(mapping = aes(x = Longitude, y = Latitude,group=group), 
                na.rm = TRUE, fill = "white", color = "black") +
   ggtitle("Top 20 most populated cities in Washington") +
@@ -26,17 +30,17 @@ map_with_values  <- rename(map_with_values , Pollution="AQI.CN.MEP.")
                  y = Latitude, 
                  fill = Pollution, 
                  size = Population
-                ), 
+             ), 
              color = "black", 
              shape=21, 
              stroke = 1,
              na.rm = TRUE
-            )+
+  )+
   coord_fixed()+
   scale_fill_gradient(name = "Pollution in AQI rating", 
                       low = "white", 
                       high = "red"
-                     ) +
+  ) +
   scale_size(name = "Temperature in C") +
   
   coord_quickmap()
