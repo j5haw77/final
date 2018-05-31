@@ -8,8 +8,8 @@ library(tidyr)
 library(plotly)
 library(grid)
 
-source("analysis.R")
-source("map.R")
+source("./analysis.R")
+source("./map.R")
 
 ui <- fluidPage(
   theme = shinytheme("yeti"),

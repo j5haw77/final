@@ -1,4 +1,4 @@
-data <- read.csv("air_visual_data.csv")
+data <- read.csv("./air_visual_data.csv")
 data <- data %>% 
   select(-X)
 colnames(data) <- c("City", "Humidity(%)", "Weather Icon Code", "Atm Pressure(hPa)", 
