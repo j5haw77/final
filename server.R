@@ -41,6 +41,7 @@ my_server <- function(input, output) {
                                  (Population %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
                  stat = "identity",
+                
                  
                  size = 4
       ) +

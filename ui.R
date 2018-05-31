@@ -99,10 +99,10 @@ ui <- fluidPage(
     tabPanel("Q&A",
              br(),
              tags$ol(
-               tags$li(p("Q: Is there a correlation between tempeture and level 
+               tags$li(p("Q: Is there a correlation between population and level 
                          of pollution?"),
                        p("A: No, based on the point distribution of the plot 
-                         there is no strong correlation between temperature and
+                         there is no strong correlation between population and
                          level of pollution.")
                        ),
                tags$li(p("Q: How heavily polluted are cities in Washington?"),
