@@ -11,6 +11,7 @@ my_server <- function(input, output) {
                            input$pollut_plot_click, 
                            xvar = "AQI (US EPA)", 
                            yvar = input$select)
+    reactive_vars$select <- selected
     colnames(selected) <- c("City", "AQI (US EPA)", input$select, 
                             "Latitude", "Longitude", "Population")
     reactive_vars$selected_value <- selected
