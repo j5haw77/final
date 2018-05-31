@@ -1,10 +1,3 @@
-library("ggplot2")
-library("dplyr")
-library("hexbin")
-library("tidyr")
-library("plotly")
-library("grid")
-
 map_with_values <- read.csv("air_visual_data.csv")
 
 states <- map_data("state")
@@ -17,11 +10,10 @@ map_with_values  <- rename(map_with_values , Pressure="ATM.Pressure")
 map_with_values  <- rename(map_with_values , Temperature="Temperature")
 map_with_values  <- rename(map_with_values , Pollution="AQI.CN.MEP.")
 
- map <-ggplot(data = states) +
-
+map <- ggplot(data = states) +
   geom_polygon(mapping = aes(x = Longitude, y = Latitude,group=group), 
                na.rm = TRUE, fill = "white", color = "black") +
-  ggtitle("Top 20 most populated cities in Washington") +
+  ggtitle("Top 40 most populated cities in Washington") +
   geom_point(data = map_with_values, 
              aes(x = Longitude, 
                  y = Latitude, 
