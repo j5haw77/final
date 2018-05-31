@@ -62,7 +62,7 @@ my_server <- function(input, output) {
     paste0("In the chosen category: ", input$select, ", the maximum value is ",
            max(data[input$select]), ", the minimum value is ", 
            min(data[input$select]), ", and the average is ", 
-           sum(data[input$select]) / 20)
+           sum(data[input$select]) / 40)
   })
   
   output$map_stats <- renderText({
@@ -70,9 +70,9 @@ my_server <- function(input, output) {
     table <- rename(table, AQI="AQI (US EPA)")
     if (nrow(table) > 0) {
       paste0("City: ", table$City, ", AQI: ", table$AQI, ", Population: ", 
-             table$Population)
+             table$Population, ".")
     } else {
-      paste("Click the points on the Map.")
+      paste("Hover onto the points on the Map to view details.")
     }
   })
 }
