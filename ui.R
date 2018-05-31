@@ -35,7 +35,7 @@ ui <- fluidPage(
                    have relatively clean air.")
                  ),
                mainPanel(
-                 plotOutput("map_plot", click = "plot_click2")
+                 plotOutput("map_plot", hover = hoverOpts(id = "plot_click2"))
                )
                  )
              ),
