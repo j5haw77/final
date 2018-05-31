@@ -37,7 +37,7 @@ ggplot(data = states) +
                       low = "white", 
                       high = "red"
   ) +
-  scale_size(name = "Temperature in C") +
+  scale_size(name = "Population") +
   
   coord_quickmap()
 
