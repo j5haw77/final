@@ -17,7 +17,7 @@ map_with_values  <- rename(map_with_values , Pressure="ATM.Pressure")
 map_with_values  <- rename(map_with_values , Temperature="Temperature")
 map_with_values  <- rename(map_with_values , Pollution="AQI.CN.MEP.")
 
- ggplot(data = states) +
+ map <-ggplot(data = states) +
   geom_polygon(mapping = aes(x = Longitude, y = Latitude,group=group), 
                na.rm = TRUE, fill = "white", color = "black") +
   ggtitle("Top 20 most populated cities in Washington") +
