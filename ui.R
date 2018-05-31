@@ -26,7 +26,7 @@ ui <- fluidPage(
   br(),
   h2("Washington State Pollution Plots & Table"),
   tabsetPanel(
-    tabPanel("Map", 
+    tabPanel("Washington Map", 
              sidebarLayout(
                sidebarPanel(
                  p("Results show below:"),
@@ -38,20 +38,20 @@ ui <- fluidPage(
                    mark of 50, all of the most populous cities in Washington
                    have relatively clean air.")
                  ),
-               mainPanel(
-                 plotOutput("map_plot", hover = hoverOpts(id = "plot_hover"))
-               )
-                 )
-             ),
-    tabPanel("Plot",
+                mainPanel(
+                  plotOutput("map_plot", hover = hoverOpts(id = "map_hover"), 
+                             width = "100%")
+                )
+              )
+    ),
+    tabPanel("Pollution Plot",
              sidebarLayout(
                sidebarPanel(
                  selectInput(
                    "select",
                    label = "Select a category:",
                    choices = c("Temperature(C)", "Humidity(%)", 
-                               "Atm Pressure(hPa)", "Wind Speed(mph)", 
-                               "Wind Direction")
+                               "Atm Pressure(hPa)", "Wind Speed(mph)")
                  ),
                  p(em("The category drop-down menu allows you to interact with the plot 
                       on the right by selecting a specific category of data that 
@@ -65,20 +65,40 @@ ui <- fluidPage(
                  textOutput("stats")
                  ),
                mainPanel(
-                 plotOutput("pollut_plot", click = "plot_click"),
+                 plotOutput("pollute_plot", click = "plot_click", width = "100%"),
                  br(),
                  tableOutput("chosen_value")
                )
-                 )
-                 ),
-    tabPanel("Table",
+              )
+    ),
+    tabPanel("City Plot",
+             sidebarLayout(
+               sidebarPanel(
+                 radioButtons(
+                   "button",
+                   "Select a category:",
+                   c("AQI Pollution Index Score" = "AQI (US EPA)",
+                     "Population" = "Population",
+                     "Temperature" = "Temperature(C)", 
+                     "Wind Speed " = "Wind Speed(mph)")
+                  ),
+                  p(em("The category radio buttons allow you to interact with the 
+                        plot on the right by selecting a specific category of 
+                        data that you are interested in viewing."))
+               ),
+               mainPanel(
+                 plotOutput("plot_city", width = "100%")
+               )
+             )
+    ),
+    tabPanel("Data Table",
              sidebarLayout(
                sidebarPanel(
                  checkboxGroupInput(
                    inputId = "categories",
                    label = "Categories",
                    choices = c("City", "Population", "Humidity(%)", "Atm Pressure(hPa)", 
-                               "Temperature(C)", "Wind Direction", "Wind Speed(mph)", 
+                               "Temperature(C)", "Wind Speed(mph)", 
                                "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                                "Main Pollutant (CN)", "Latitude", "Longitude"),
                    selected = c("City", "Population", "AQI (US EPA)", 
@@ -94,23 +114,7 @@ ui <- fluidPage(
                  p("The table below shows various data for each city."),
                  DT::dataTableOutput("data_table")
                )
-                 )
-    ),
-    tabPanel("Plot",
-             sidebarLayout(
-               sidebarPanel(
-                 radioButtons(
-                   "button",
-                   "Select a category:",
-                   c("AQI Pollution Index Score" = "AQI (US EPA)",
-                     "Temperature" = "Temperature(C)", 
-                     "Wind Direction" = "Wind Direction", 
-                     "Wind Speed " = "Wind Speed(mph)"))
-               ),
-               mainPanel(
-                 plotOutput("plot_city")
-               )
-             )
+              )
     ),
     tabPanel("Q&A",
              br(),
@@ -146,12 +150,11 @@ ui <- fluidPage(
                                 motor vehicles being used the humidity should 
                                 increase because water vapor is a product of 
                                 burning gas."))
-                       )
-                       )
-                       )
-                       ),
-
-  br(),
+              )
+            )
+    )
+  ),
+  br(), br(), br(),
   h2("Data Documentation"),
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
@@ -183,10 +186,10 @@ ui <- fluidPage(
                 tags$li("n2: Nitrogen dioxide (NO2)"),
                 tags$li("s2: Sulfur dioxide (SO2)"),
                 tags$li("co: Carbon monoxide (CO)")
-                )
               )
       )
     )
-               )
+  )
+)
 
 shinyUI(ui)

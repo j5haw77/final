@@ -20,9 +20,23 @@ my_server <- function(input, output) {
   })
   
   output$plot_city <- renderPlot({
-    ggplot(data, aes(x = City, y = data[input$button])) +
-      geom_bar(stat = "identity")
-  })
+    city_plot <- ggplot(data, aes(x = City, 
+                                  y = data[input$button], 
+                                  fill = data[input$button])
+                       ) + 
+      geom_bar(stat = "identity") +
+      scale_fill_distiller(palette = "Spectral") + 
+      labs(title = paste0(input$button, " by Cities"),
+           x = "City",
+           y = input$button,
+           fill = input$button
+      ) +
+      theme(
+        axis.text.x = element_text(angle=90)
+      )
+    city_plot <- add_theme(city_plot)
+    city_plot
+  }, height = 450, width = 650)
   
   observeEvent(input$select, {
     reactive_vars$selected_value <- NULL
@@ -39,15 +53,13 @@ my_server <- function(input, output) {
     } 
   })
   
-  output$pollut_plot <- renderPlot({
+  output$pollute_plot <- renderPlot({
     plot <- ggplot(data = selected_df(), 
                    aes(x = data["AQI (US EPA)"], y = data[input$select])) + 
       geom_point(mapping = aes(color = 
                                  (Population %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
                  stat = "identity",
-                
-                 
                  size = 4
       ) +
       geom_smooth(method = lm) +
@@ -57,12 +69,11 @@ my_server <- function(input, output) {
            y = input$select
       )
     add_theme(plot)
-    
-  })
+  }, height = 420, width = 600)
   
   output$map_plot <- renderPlot({
     map
-  })
+  }, height = 450, width = 650)
   
   output$stats <- renderText({
     paste0("In the chosen category: ", input$select, ", the maximum value is ",
@@ -72,7 +83,7 @@ my_server <- function(input, output) {
   })
   
   output$map_stats <- renderText({
-    table <- nearPoints(data, input$plot_hover)
+    table <- nearPoints(data, input$map_hover)
     table <- rename(table, AQI="AQI (US EPA)")
     if (nrow(table) > 0) {
       paste0("City: ", table$City, ", AQI: ", table$AQI, ", Population: ", 
