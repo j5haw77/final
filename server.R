@@ -1,10 +1,8 @@
-
 # server for shiny app
 library(shiny)
 library(dplyr)
 library(ggplot2)
 library(DT)
-
 
 my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
@@ -75,7 +73,7 @@ my_server <- function(input, output) {
     table <- rename(table, AQI="AQI (US EPA)")
     if (nrow(table) > 0) {
       paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", 
-             table$Temperature, "°C")
+             table$Temperature, "C")
     } else {
       paste("Click the points on the Map.")
     }

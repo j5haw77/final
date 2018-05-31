@@ -24,17 +24,17 @@ map <- ggplot(data = states) +
                  y = Latitude, 
                  fill = Pollution, 
                  size = Temperature
-                ), 
+             ), 
              color = "black", 
              shape=21, 
              stroke = 1,
              na.rm = TRUE
-            )+
+  )+
   coord_fixed()+
   scale_fill_gradient(name = "Pollution in AQI rating", 
                       low = "white", 
                       high = "red"
-                     ) +
+  ) +
   scale_size(name = "Temperature in C") +
   
   coord_quickmap()
