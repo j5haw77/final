@@ -1,3 +1,4 @@
+#Defines the User Interface for the Washington Air and Weather app
 library(shiny)
 library(dplyr)
 library(ggplot2)
@@ -14,9 +15,9 @@ source("./map.R")
 ui <- fluidPage(
   theme = shinytheme("yeti"),
   tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
-  titlePanel("", "Washington Air & Weather"),
-  h1(strong("Washington Air & Weather")),
-  h2(strong("Introduction")),
+  titlePanel("Washington Air & Weather"),
+  h3("By Sam Lee, Dylan Thornsberry, Gordon Duncan, and Jackson Shaw"),
+  h3(strong("Introduction")),
   p("This project analyzes and visualizes environmental data received from the
     Air Visual database for the 40 most populous cities in Washington with 
     information on the database on May 28th, 2018. This data includes 
@@ -33,7 +34,7 @@ ui <- fluidPage(
     since larger population in the cities implies the greater need for the use 
     of motor vehicles and/or facilities that end up producing and releasing 
     pollutants into the air, such as factories."),
-  h2(strong("Washington State Pollution Plots & Table")),
+  h3(strong("Washington State Pollution Plots & Table")),
   tabsetPanel(
     tabPanel("Washington Map", 
              sidebarLayout(
@@ -184,7 +185,7 @@ ui <- fluidPage(
     )
   ),
   br(), br(), br(),
-  h2(strong("Data Documentation")),
+  h3(strong("Data Documentation")),
   p("The data presented here originated from Air Visual, a company that
     manufactures home air quality monitors and gathers data from weather
     stations around the world.",
