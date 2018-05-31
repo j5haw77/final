@@ -45,7 +45,8 @@ my_server <- function(input, output) {
                                color = 
                                  (Latitude %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
-                 stat = "identity", 
+                 stat = "identity",
+                 
                  size = 4
                 ) +
       guides(color = FALSE) +
