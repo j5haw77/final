@@ -1,6 +1,6 @@
 library(maps)
 
-map_with_values <- read.csv("air_visual_data.csv")
+map_with_values <- read.csv("./air_visual_data.csv")
 
 library(maps)
 states <- map_data("state")
