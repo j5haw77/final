@@ -2,11 +2,13 @@ library(shiny)
 library(dplyr)
 library(ggplot2)
 library(DT)
+library(shinythemes)
 
 source("analysis.R")
 source("map.R")
 
 ui <- fluidPage(
+  theme = shinytheme("yeti"),
   tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
   titlePanel("Washington Air & Weather"),
   br(),
@@ -23,9 +25,10 @@ ui <- fluidPage(
     tabPanel("Map", 
              sidebarLayout(
                sidebarPanel(
-                 p(em("Click the points on the Map.")),
                  p("Results show below:"),
+                 br(),
                  textOutput("map_stats"),
+                 br(),
                  p("These stats indicate that, since even the city with the
                    most polluted air has an AQI rating below the 'Moderate'
                    mark of 50, all of the most populous cities in Washington
@@ -113,9 +116,17 @@ ui <- fluidPage(
                          despite being far from Puget Sound is heavily
                          polluted. This is potentially due to large amounts of
                          agricultural activities mixing with motor vehicle 
-                         emissions.")
-               )
-             )
+                         emissions.")),
+              tags$li(p("Q: Is there a correlation between humidity and 
+                        pollution?"),
+                      p(paste0("A: Acording to the plot there is no strong 
+                               correlation between humidity and pollution. 
+                               We found this surprising because with all the 
+                               motor vehicles being used the humidity should 
+                               increase because water vapor is a product of 
+                               burning gas."))
+              )
+             
             )
   ),
   br(),
