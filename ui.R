@@ -46,7 +46,7 @@ ui <- fluidPage(
                    "select",
                    label = "Select a category:",
                    choices = c("Temperature(C)", "Humidity(%)", "Atm Pressure(hPa)", 
-                               "Wind Speed(mph)", "Wind Direction()")
+                               "Wind Speed(mph)", "Wind Direction")
                  ),
                  p(em("The category drop-down menu allows you to interact with the plot 
                       on the right by selecting a specific category of data that 
@@ -73,7 +73,7 @@ ui <- fluidPage(
                    inputId = "categories",
                    label = "Categories",
                    choices = c("City", "Humidity(%)", "Atm Pressure(hPa)", 
-                               "Temperature(C)", "Wind Direction()", "Wind Speed(mph)", 
+                               "Temperature(C)", "Wind Direction", "Wind Speed(mph)", 
                                "AQI (US EPA)", "Main Pollutant (US)", "AQI (CN MEP)", 
                                "Main Pollutant (CN)", "Latitude", "Longitude"),
                    selected = c("City", "Humidity(%)", "AQI (US EPA)", "Temperature(C)", 
