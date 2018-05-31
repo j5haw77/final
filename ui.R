@@ -28,11 +28,10 @@ ui <- fluidPage(
     Washington State. Furthermore, we are interested in the relationships
     between pollution levels and other weather factors, such as temperature, 
     atmospheric pressure, and wind speed, as well as populations. We predict
-    that population will probably be the one that has a stronger correlation
-    with levels of pollution than other weather factors, since larger 
-    population in the cities implies the greater need for the use of motor 
-    vehicles and/or for jobs that end up producing pollutant and releasing 
-    into the air, such as factories."),
+    that population will probably have the strongest correlation with pollution,
+    since larger population in the cities implies the greater need for the use 
+    of motor vehicles and/or facilities that end up producing and releasing 
+    pollutants into the air, such as factories."),
   h3(strong("Washington State Pollution Plots & Table")),
   tabsetPanel(
     tabPanel("Washington Map", 
