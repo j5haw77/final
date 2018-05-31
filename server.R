@@ -45,9 +45,10 @@ my_server <- function(input, output) {
                                color = 
                                  (Latitude %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
-                 stat = "identity", 
+                 stat = "identity",
+                 
                  size = 4
-                ) +
+      ) +
       guides(color = FALSE) +
       labs(title = paste0(input$select, " by AQI (US EPA)"),
            x = "AQI (US EPA)",
@@ -73,7 +74,7 @@ my_server <- function(input, output) {
     table <- rename(table, AQI="AQI (US EPA)")
     if (nrow(table) > 0) {
       paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", 
-             table$Temperature, "°C")
+             table$Temperature, "C")
     } else {
       paste("Click the points on the Map.")
     }
