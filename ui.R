@@ -18,7 +18,7 @@ ui <- fluidPage(
   br(),
   h1("Introduction"),
   p("This project analyzes and visualizes environmental data received from the
-    Air Visual database for the 20 most populous cities in Washington with 
+    Air Visual database for the 40 most populous cities in Washington with 
     information on the database on May 28th, 2018. This data includes 
     information on multiple measurements of the environment, including 
     temperature, atmospheric pressure, wind speed, and pollution for the 
