@@ -109,7 +109,7 @@ my_server <- function(input, output) {
   
   output$pop_plot <- renderPlot({
     ggplot(data = data, aes(x = Population, y = data[["AQI (US EPA)"]])) +
-      geom_point(mapping = aes(color = Population), size = 4) +
+      geom_point(mapping = aes(color = -Population), size = 4) +
       geom_smooth(method = lm) +
       guides(color = FALSE)+
       labs(y = "Air Quality Index (US EPA) Rating")
