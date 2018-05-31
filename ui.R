@@ -162,6 +162,7 @@ ui <- fluidPage(
                 tags$li("s2: Sulfur dioxide (SO2)"),
                 tags$li("co: Carbon monoxide (CO)")
               ))
+      )
     )
   )
 )
