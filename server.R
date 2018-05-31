@@ -1,14 +1,9 @@
-# server for shiny app
-library(shiny)
-library(dplyr)
-library(ggplot2)
-library(DT)
-
 my_server <- function(input, output) {
   reactive_vars <- reactiveValues()
   
   selected_df <- reactive({
-    data %>% select(City, "AQI (US EPA)", input$select, "Latitude", "Longitude")
+    data %>% select(City, "AQI (US EPA)", input$select, Latitude, Longitude, 
+                    Population)
   })
   
   observeEvent(input$plot_click, {
@@ -16,7 +11,8 @@ my_server <- function(input, output) {
                            input$plot_click, 
                            xvar = "AQI (US EPA)", 
                            yvar = input$select)
-    colnames(selected) <- c("City", "AQI (US EPA)", input$select, "Latitude", "Longitude")
+    colnames(selected) <- c("City", "AQI (US EPA)", input$select, 
+                            "Latitude", "Longitude", "Population")
     reactive_vars$selected_value <- selected
     if (nrow(selected) == 0) {
       reactive_vars$selected_value <- NULL
@@ -39,16 +35,16 @@ my_server <- function(input, output) {
   })
   
   output$pollut_plot <- renderPlot({
-    plot <- ggplot(data = selected_df()) + 
-      geom_point(mapping = aes(x = data["AQI (US EPA)"], 
-                               y = data[input$select], 
-                               color = 
-                                 (Latitude %in% reactive_vars$selected_value)),
+    plot <- ggplot(data = selected_df(), 
+                   aes(x = data["AQI (US EPA)"], y = data[input$select])) + 
+      geom_point(mapping = aes(color = 
+                                 (Population %in% reactive_vars$selected_value)),
                  na.rm = TRUE, 
                  stat = "identity",
                  
                  size = 4
       ) +
+      geom_smooth(method = lm) +
       guides(color = FALSE) +
       labs(title = paste0(input$select, " by AQI (US EPA)"),
            x = "AQI (US EPA)",
@@ -70,11 +66,11 @@ my_server <- function(input, output) {
   })
   
   output$map_stats <- renderText({
-    table <- nearPoints(data, input$plot_click2)
+    table <- nearPoints(data, input$plot_hover)
     table <- rename(table, AQI="AQI (US EPA)")
     if (nrow(table) > 0) {
-      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", 
-             table$Temperature, "C")
+      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Population: ", 
+             table$Population)
     } else {
       paste("Click the points on the Map.")
     }

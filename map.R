@@ -1,10 +1,3 @@
-library("ggplot2")
-library("dplyr")
-library("hexbin")
-library("tidyr")
-library("plotly")
-library("grid")
-
 map_with_values <- read.csv("air_visual_data.csv")
 
 states <- map_data("state")
