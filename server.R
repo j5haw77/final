@@ -74,6 +74,8 @@ my_server <- function(input, output) {
     if (nrow(table) > 0) {
       paste0("City: ", table$City, ", AQI: ", table$AQI, ", Temperature: ", 
              table$Temperature, "°C")
+    } else {
+      paste("Click the points on the Map.")
     }
   })
 }
