@@ -15,8 +15,9 @@ source("./map.R")
 ui <- fluidPage(
   theme = shinytheme("yeti"),
   tags$head(tags$style(".checkbox-inline {margin: 0 !important;}")),
-  titlePanel("Washington Air & Weather"),
-  h3("By Sam Lee, Dylan Thornsberry, Gordon Duncan, and Jackson Shaw"),
+  titlePanel("", "Washington Air & Weather"),
+  h1(strong("Washington Air & Weather")),
+  h4("By Sam Lee, Dylan Thornsberry, Gordon Duncan, and Jackson Shaw"),
   h3(strong("Introduction")),
   p("This project analyzes and visualizes environmental data received from the
     Air Visual database for the 40 most populous cities in Washington with 
