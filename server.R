@@ -1,3 +1,4 @@
+# Defines the Server for the Washington Air and Weather app
 my_server <- function(input, output) {
   # Reactive values
   reactive_vars <- reactiveValues()

@@ -1,4 +1,4 @@
-#Defines the User Interface for the Washington Air and Weather app
+# Defines the User Interface for the Washington Air and Weather app
 library(shiny)
 library(dplyr)
 library(ggplot2)
