@@ -1,4 +1,5 @@
 my_server <- function(input, output) {
+  # Reactive values
   reactive_vars <- reactiveValues()
   
   selected_df <- reactive({
@@ -6,52 +7,53 @@ my_server <- function(input, output) {
                     Population)
   })
   
-  observeEvent(input$plot_click, {
-    selected <- nearPoints(selected_df(), 
-                           input$plot_click, 
-                           xvar = "AQI (US EPA)", 
-                           yvar = input$select)
-    reactive_vars$select <- selected
-    colnames(selected) <- c("City", "AQI (US EPA)", input$select, 
-                            "Latitude", "Longitude", "Population")
-    reactive_vars$selected_value <- selected
-    if (nrow(selected) == 0) {
-      reactive_vars$selected_value <- NULL
+  # Washington Map
+  output$map_plot <- renderPlot({
+    map
+  }, height = 450, width = 650)
+  
+  output$map_stats <- renderText({
+    table <- nearPoints(data, input$map_hover)
+    table <- rename(table, AQI="AQI (US EPA)")
+    if (nrow(table) > 0) {
+      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Population: ", 
+             table$Population, ".")
+    } else {
+      paste("Hover onto the points on the Map to view details.")
     }
   })
   
-  output$plot_city <- renderPlot({
-    city_plot <- ggplot(data, aes(x = City, 
-                                  y = data[input$button], 
-                                  fill = data[input$button])
-                       ) + 
-      geom_bar(stat = "identity") +
-      scale_fill_distiller(palette = "Spectral") + 
-      labs(title = paste0(input$button, " by Cities"),
-           x = "City",
-           y = input$button,
-           fill = input$button
-      ) +
-       coord_flip()
-    city_plot <- add_theme(city_plot)
-    city_plot
-  }, height = 450, width = 650)
-  
-  observeEvent(input$select, {
-    reactive_vars$selected_value <- NULL
+  # Population Plot
+  output$pop_plot <- renderPlot({
+    ggplot(data = data, aes(x = Population, y = data[["AQI (US EPA)"]])) +
+      geom_point(mapping = aes(color = -Population), size = 4) +
+      geom_smooth(method = lm) +
+      guides(color = FALSE)+
+      labs(y = "Air Quality Index (US EPA) Rating")
   })
   
-  
-  output$chosen_value <- renderTable({
-    reactive_vars$selected_value
+  output$pop_stats <- renderText({
+    df <- selected_df()
+    selected <- nearPoints(df, 
+                           input$pop_hover, 
+                           xvar = "Population", 
+                           yvar = "AQI (US EPA)")
+    if (nrow(selected) > 0) {
+      paste0("City: ", selected$City, ", Population: ", selected$Population, 
+             ", AQI: ", selected["AQI (US EPA)"], ".")
+    } else {
+      paste("Hover onto the points on the Plot to view details.")
+    }
   })
   
-  output$data_table <- renderDT({
-    if (!is.null(input$categories)) {
-      data %>% select(City, input$categories)
-    } 
+  # Pollution Plot
+  output$stats <- renderText({
+    paste0("In the chosen category: ", input$select, ", the maximum value is ",
+           max(data[input$select]), ", the minimum value is ", 
+           min(data[input$select]), ", and the average is ", 
+           sum(data[input$select]) / 40)
   })
-  
+
   output$pollute_plot <- renderPlot({
     plot <- ggplot(data = selected_df(), 
                    aes(x = data["AQI (US EPA)"], y = data[input$select])) + 
@@ -70,6 +72,24 @@ my_server <- function(input, output) {
     add_theme(plot)
   }, height = 420, width = 600)
   
+  observeEvent(input$plot_click, {
+    selected <- nearPoints(selected_df(), 
+                           input$plot_click, 
+                           xvar = "AQI (US EPA)", 
+                           yvar = input$select)
+    reactive_vars$select <- selected
+    colnames(selected) <- c("City", "AQI (US EPA)", input$select, 
+                            "Latitude", "Longitude", "Population")
+    reactive_vars$selected_value <- selected
+    if (nrow(selected) == 0) {
+      reactive_vars$selected_value <- NULL
+    }
+  })
+  
+  observeEvent(input$select, {
+    reactive_vars$selected_value <- NULL
+  })
+  
   output$hover_text <- renderText({
     df <- selected_df()
     selected <- nearPoints(df, 
@@ -83,34 +103,33 @@ my_server <- function(input, output) {
     }
   })
   
-  output$map_plot <- renderPlot({
-    map
+  output$chosen_value <- renderTable({
+    reactive_vars$selected_value
+  })
+  
+  # City Plot
+  output$plot_city <- renderPlot({
+    city_plot <- ggplot(data, aes(x = City, 
+                                  y = data[input$button], 
+                                  fill = data[input$button])
+                       ) + 
+      geom_bar(stat = "identity") +
+      scale_fill_distiller(palette = "Spectral") + 
+      labs(title = paste0(input$button, " by Cities"),
+           x = "City",
+           y = input$button,
+           fill = input$button
+      ) +
+       coord_flip()
+    city_plot <- add_theme(city_plot)
+    city_plot
   }, height = 450, width = 650)
   
-  output$stats <- renderText({
-    paste0("In the chosen category: ", input$select, ", the maximum value is ",
-           max(data[input$select]), ", the minimum value is ", 
-           min(data[input$select]), ", and the average is ", 
-           sum(data[input$select]) / 40)
-  })
-  
-  output$map_stats <- renderText({
-    table <- nearPoints(data, input$map_hover)
-    table <- rename(table, AQI="AQI (US EPA)")
-    if (nrow(table) > 0) {
-      paste0("City: ", table$City, ", AQI: ", table$AQI, ", Population: ", 
-             table$Population, ".")
-    } else {
-      paste("Hover onto the points on the Map to view details.")
-    }
-  })
-  
-  output$pop_plot <- renderPlot({
-    ggplot(data = data, aes(x = Population, y = data[["AQI (US EPA)"]])) +
-      geom_point(mapping = aes(color = -Population), size = 4) +
-      geom_smooth(method = lm) +
-      guides(color = FALSE)+
-      labs(y = "Air Quality Index (US EPA) Rating")
+  # Data Table
+  output$data_table <- renderDT({
+    if (!is.null(input$categories)) {
+      data %>% select(City, input$categories)
+    } 
   })
 }
 

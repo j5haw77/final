@@ -39,13 +39,12 @@ ui <- fluidPage(
              sidebarLayout(
                sidebarPanel(
                  p("Results show below:"),
-                 br(),
-                 textOutput("map_stats"),
-                 br(),
                  p("These stats indicate that, since even the city with the
                    most polluted air has an AQI rating below the 'Moderate'
                    mark of 50, all of the most populous cities in Washington
-                   have relatively clean air.")
+                   have relatively clean air."),
+                 br(),
+                 em(textOutput("map_stats"))
                  ),
                 mainPanel(
                   plotOutput("map_plot", hover = hoverOpts(id = "map_hover"), 
@@ -61,10 +60,12 @@ ui <- fluidPage(
                    city."),
                  p("This plot shows that, of the most populous cities in
                    Seattle, there is no significant relationship between
-                   population and air pollution.")
+                   population and air pollution."),
+                 br(),
+                 em(textOutput("pop_stats"))
                ),
                mainPanel(
-                 plotOutput("pop_plot")
+                 plotOutput("pop_plot", hover = hoverOpts(id = "pop_hover"))
                )
              )
     ),
@@ -77,6 +78,8 @@ ui <- fluidPage(
                    choices = c("Temperature(C)", "Humidity(%)", 
                                "Atm Pressure(hPa)", "Wind Speed(mph)")
                  ),
+                 textOutput("stats"),
+                 br(),
                  p(em("The category drop-down menu allows you to interact with the plot 
                       on the right by selecting a specific category of data that 
                       you are interested in viewing.")),
@@ -86,9 +89,7 @@ ui <- fluidPage(
                       relevant information. The small table below shows the City name, 
                       AQI (US EPA) rating, data of the selected category, the latitude, 
                       and longitude of the clicked point on the graph. 
-                      (Initially, there is no table showing)")),
-                 br(),
-                 textOutput("stats")
+                      (Initially, there is no table showing)"))
                  ),
                mainPanel(
                  plotOutput("pollute_plot", click = "plot_click",
